@@ -31,7 +31,8 @@ async function addTextToImage(imagePath, textParams) {
 
     ctx.drawImage(image, 0, 0);
 
-    ctx.font = `${textParams.fontWeight} ${textParams.fontSize}px ${textParams.fontFamily}`;
+    // ctx.font = `${textParams.fontWeight} ${textParams.fontSize}px ${textParams.fontFamily}`;
+    ctx.font = `${textParams.fontWeight} ${textParams.fontSize}px "${textParams.fontFamily}"`;
     ctx.fillStyle = textParams.color;
     ctx.globalAlpha = textParams.opacity;
     ctx.textAlign = 'center';

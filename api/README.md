@@ -110,3 +110,27 @@
     ## Reason for Implementing Two Separate API Endpoints
 
     The main reason for separating background removal and text addition is flexibility. This allows users to make multiple attempts at formatting text without needing to remove the background each time, significantly improving efficiency and user experience.
+
+
+    ### Font Management
+
+    Before running the server, you need to download and register the fonts used in the application. This is handled by the `fontLoader.js` script.
+
+    1. Ensure you have the necessary dependencies installed:
+       ```
+       npm install canvas
+       ```
+
+    2. Run the font download script:
+       ```
+       npm run download-fonts
+       ```
+
+       This script will:
+       - Read the font URLs from `app/fonts.css`
+       - Download each font to the `fonts` directory in the project root
+       - Register the fonts with node-canvas for use in image processing
+
+    3. The fonts will be stored in the `fonts` directory as `.ttf` files.
+
+    Note: The font download process may take some time depending on the number of fonts and your internet connection speed. You only need to run this once, or when new fonts are added to `app/fonts.css`.

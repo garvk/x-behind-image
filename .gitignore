@@ -8,6 +8,9 @@
 
 # testing
 /coverage
+/fonts/
+fonts/
+uploads/
 
 # next.js
 /.next/

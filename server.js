@@ -4,9 +4,11 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const { removeImageBackground, addTextToImage, previewImage } = require('./api/bgremoval');
+const { loadFonts } = require('./fontLoader');
 
 const app = express();
 const upload = multer({ dest: 'uploads/' });
+loadFonts();
 
 app.use(bodyParser.json());
 
