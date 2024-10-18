@@ -59,8 +59,6 @@
     ```
 
     **Expected Response**:
-
-    The API will save the image to the `uploads` directory and return the path to the removed background image.
     ```json
     {
       "success": true,
@@ -70,8 +68,6 @@
     ```
 
     ### 2. Preview Image API
-
-    The Preview Image API is used to add text to an image with a removed background.
 
     **Endpoint**: `/api/preview-image`
 
