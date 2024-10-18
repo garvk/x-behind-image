@@ -8,7 +8,7 @@ const { loadFonts } = require('./fontLoader');
 
 const app = express();
 const upload = multer({ dest: 'uploads/' });
-loadFonts();
+// loadFonts();
 
 app.use(bodyParser.json());
 
