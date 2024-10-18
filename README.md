@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+    # API Documentation
 
-## Getting Started
+    This document provides information on how to run the API endpoints for the Text Behind Image project. The API is built using Express.js and runs separately from the Next.js application to handle image processing tasks.
 
-First, run the development server:
+    ## Why a Separate API?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+    A separate Express.js API is implemented for this project to address limitations in the current browser-based implementation:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+    1. **Offload Computation**: The current implementation relies on the browser for all computation, which can be resource-intensive. A separate API allows these tasks to be performed server-side.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+    2. **Performance**: Image processing is computationally expensive. An API offloads this work from the client, improving overall application performance.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+    3. **Scalability**: A dedicated API enables independent scaling of image processing services as the application grows.
 
-## Learn More
+    4. **Broader Compatibility**: Server-side processing ensures the application works across various devices and browsers, regardless of their computational capabilities.
 
-To learn more about Next.js, take a look at the following resources:
+    5. **Resource Management**: Certain image processing libraries and operations are better suited for a controlled server environment than a browser context.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ## Running the API
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    To start the API server:
 
-## Deploy on Vercel
+    1. Navigate to the project root directory.
+    2. Run the following command:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ```
+    npm run api
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    3. The API server will start running on `http://localhost:3000` (or the port specified in your environment variables).
+
+    ## API Endpoints
+
+    We have implemented two separate API endpoints for our image processing tasks:
+
+    1. **Remove Background**: This endpoint removes the background from an uploaded image.
+    2. **Preview Image**: This endpoint adds text to an image with a removed background and generates a preview.
+
+    The reason for implementing two separate endpoints is to allow for more flexibility and better performance. By separating the background removal and text addition processes, we can:
+
+    - Allow users to remove backgrounds without necessarily adding text.
+    - Cache or save the background-removed images for future use.
+    - Reduce processing time when users want to change only the text without re-processing the background removal.
+
+    ### 1. Remove Background API
+
+    **Endpoint**: `/api/remove-background`
+
+    **Method**: POST
+
+    **Content-Type**: multipart/form-data
+
+    **Sample cURL Request**:
+    ```bash
+    curl -X POST \
+      http://localhost:3000/api/remove-background \
+      -H 'Content-Type: multipart/form-data' \
+      -F 'image=@/path/to/your/image.jpeg'
+    ```
+
+    **Expected Response**:
+    ```json
+    {
+      "success": true,
+      "removedBgImagePath": "/uploads/bg_removed_[filename].png",
+      "originalImagePath": "/uploads/[filename]"
+    }
+    ```
+
+    ### 2. Preview Image API
+
+    **Endpoint**: `/api/preview-image`
+
+    **Method**: POST
+
+    **Content-Type**: application/json
+
+    **Sample cURL Request**:
+    ```bash
+    curl -X POST \
+      http://localhost:3000/api/preview-image \
+      -H 'Content-Type: application/json' \
+      -d '{
+        "originalImagePath": "path_to_your_root_directory/uploads/[filename]",
+        "removedBgImagePath": "path_to_your_root_directory/uploads/bg_removed_[filename].png",
+        "textParams": {
+          "text": "Sample Text",
+          "fontFamily": "Arial",
+          "fontSize": 100,
+          "fontWeight": 650,
+          "color": "#ea4500",
+          "top": 10,
+          "left": 2,
+          "rotation": -15,
+          "opacity": 1,
+          "shadowColor": "rgba(10, 10, 0, 0.5)",
+          "shadowSize": 10
+        }
+      }'
+    ```
+
+    **Expected Response**:
+    The API will save the preview image to the `uploads` directory without returning the path to the preview image.
+
+
+    ## Reason for Implementing Two Separate API Endpoints
+
+    The main reason for separating background removal and text addition is flexibility. This allows users to make multiple attempts at formatting text without needing to remove the background each time, significantly improving efficiency and user experience.
+
+
+    ### Font Management
+
+    Before running the server, you need to download and register the fonts used in the application. This is handled by the `fontLoader.js` script.
+
+    1. Ensure you have the necessary dependencies installed:
+       ```
+       npm install canvas
+       ```
+
+    2. Run the font download script:
+       ```
+       npm run download-fonts
+       ```
+
+       This script will:
+       - Read the font URLs from `app/fonts.css`
+       - Download each font to the `fonts` directory in the project root
+       - Register the fonts with node-canvas for use in image processing
+
+    3. The fonts will be stored in the `fonts` directory as `.ttf` files.
+
+    Note: The font download process may take some time depending on the number of fonts and your internet connection speed. You only need to run this once, or when new fonts are added to `app/fonts.css`.
