@@ -32,8 +32,5 @@ requiredFiles = [".replit", "replit.nix", ".config", "package.json"]
 localPort = 3000
 externalPort = 80
 
-[objectStorage]
-defaultBucketID = "replit-objstore-f506924d-f933-420c-a17e-a804ff3cac9c"
-
 [env]
 IMAGE_RETENTION_DAYS = "7"
