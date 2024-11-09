@@ -1,9 +1,18 @@
 const fs = require('fs');
 const path = require('path');
 const { registerFont } = require('canvas');
-const fetch = require('node-fetch');
+
+let fetch;
+
+async function initializeFetch() {
+  const module = await import('node-fetch');
+  fetch = module.default;
+}
 
 async function downloadFont(url, fontName) {
+
+  await initializeFetch();
+
   const fontDir = path.join(__dirname, 'fonts');
   if (!fs.existsSync(fontDir)) {
     fs.mkdirSync(fontDir);
@@ -52,7 +61,7 @@ async function loadFonts() {
     const fontName = url.split('family=')[1].split(':')[0].replace(/\+/g, ' ');
 
     const downloadedFonts = await downloadFont(url, fontName);
-    
+
     downloadedFonts.forEach((fontPath, index) => {
       registerFont(fontPath, { family: fontName });
       console.log(`Registered: ${fontName} (variant ${index + 1})`);

@@ -1,0 +1,39 @@
+run = "npm run start"
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "npm run start"]
+deploymentTarget = "gce"
+
+[languages]
+
+[languages.javascript]
+pattern = "**/{*.js,*.jsx,*.ts,*.tsx}"
+
+[languages.javascript.languageServer]
+start = "typescript-language-server --stdio"
+
+[packager]
+language = "nodejs"
+
+[packager.features]
+packageSearch = true
+guessImports = true
+enabledForHosting = false
+
+[unitTest]
+language = "nodejs"
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix", ".config", "package.json"]
+
+[[ports]]
+localPort = 3000
+externalPort = 80
+
+[objectStorage]
+defaultBucketID = "replit-objstore-f506924d-f933-420c-a17e-a804ff3cac9c"
+
+[env]
+IMAGE_RETENTION_DAYS = "7"
