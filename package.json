@@ -1,45 +1,24 @@
 {
   "name": "x-behind-image",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "This document provides information on how to run the API endpoints for the Text Behind Image project. The API is built using Express.js and runs separately from the Next.js application to handle image processing tasks.",
+  "main": "index.js",
   "scripts": {
-    "api": "node server.js",
-    "download-fonts": "node fontLoader.js"
+    "start": "node index.js",
+    "download-fonts": "node fontLoader.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    
-    "@imgly/background-removal-node": "^1.4.5",
-    "@tabler/icons-react": "^3.17.0",
-    "class-variance-authority": "^0.7.0",
-    "body-parser": "^1.20.3",
+    "@imgly/background-removal-node": "^1.0.0",
+    "@replit/object-storage": "^1.0.0",
+    "body-parser": "^1.19.0",
     "canvas": "^2.11.2",
-    "clsx": "^2.1.1",
-    "cmdk": "^1.0.0",
-    "cobe": "^0.6.3",
-    "express": "^4.21.1",
-    "framer-motion": "^11.7.0",
-    "lucide-react": "^0.439.0",
-    "mini-svg-data-uri": "^1.4.4",
-    "multer": "^1.4.5-lts.1",
-    "node-fetch": "^2.7.0",
-    "random-word-slugs": "^0.1.7",
-    "react": "^18",
-    "react-color": "^2.19.3",
-    "react-dom": "^18",
-    "react-icons": "^5.3.0",
-    "tailwind-merge": "^2.5.2",
-    "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.23.8"
-  },
-  "devDependencies": {
-    "@types/node": "^20",
-    "@types/node-fetch": "^2.6.11",
-    "@types/react": "^18",
-    "@types/react-color": "^3.0.12",
-    "@types/react-dom": "^18",
-    "postcss": "^8",
-    "supabase": "^1.191.3",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "express": "^4.17.1",
+    "imagekit": "^5.2.0",
+    "multer": "^1.4.2",
+    "node-fetch": "^3.3.2"
   }
 }

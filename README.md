@@ -77,26 +77,28 @@
 
     **Sample cURL Request**:
     ```bash
-    curl -X POST \
-      http://localhost:3000/api/preview-image \
-      -H 'Content-Type: application/json' \
-      -d '{
-        "originalImagePath": "path_to_your_root_directory/uploads/[filename]",
-        "removedBgImagePath": "path_to_your_root_directory/uploads/bg_removed_[filename].png",
-        "textParams": {
-          "text": "Sample Text",
-          "fontFamily": "Arial",
-          "fontSize": 100,
-          "fontWeight": 650,
-          "color": "#ea4500",
-          "top": 10,
-          "left": 2,
-          "rotation": -15,
-          "opacity": 1,
-          "shadowColor": "rgba(10, 10, 0, 0.5)",
-          "shadowSize": 10
-        }
-      }'
+  curl -X POST \
+    https://your-replit-url/api/preview-image \
+    -H 'Content-Type: application/json' \
+    -d '{
+      "originalImagePath": "uploads/yourusername/your_original_image.png",
+      "removedBgImagePath": "uploads/yourusername/bg_removed_your_original_image.png",
+      "username": "yourusername",
+      "textParams": {
+        "text": "Sample Text",
+        "fontFamily": "Arial",
+        "fontSize": 100,
+        "fontWeight": 650,
+        "color": "#ea4500",
+        "top": 10,
+        "left": 2,
+        "rotation": -15,
+        "opacity": 1,
+        "shadowColor": "rgba(10, 10, 0, 0.5)",
+        "shadowSize": 10
+      }
+    }'
+
     ```
 
     **Expected Response**:
